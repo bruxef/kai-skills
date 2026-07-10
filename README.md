@@ -1,6 +1,6 @@
 # Kai Critical-Thinking Skills
 
-A curated collection of **6 critical-thinking skills** adapted for [Kai](https://kai-ai.app/) — your personal AI assistant that grows with you.
+A curated collection of **6 critical-thinking skills** adapted for [Kai](https://github.com/SimonSchubert/Kai) — your personal AI assistant with persistent memory.
 
 > **Perfect for**: decision-making, problem-solving, research, planning, and creative ideation.
 
@@ -19,7 +19,7 @@ A curated collection of **6 critical-thinking skills** adapted for [Kai](https:/
 
 ---
 
-## 🚀 Quick Install
+## 🚀 Quick Install (Cloud Mode)
 
 1. Open Kai → **Add Skill** → **Install from GitHub**
 2. Paste one of the install commands above (e.g., `bruxef/kai-skills/inversion-exercise`)
@@ -58,7 +58,7 @@ MIT — same as the original [obra/superpowers-skills](https://github.com/obra/s
 
 ---
 
-## 💬 Feedback & Contributions
+## 📬 Feedback & Contributions
 
 Found a bug? Want to suggest another skill? Open an issue or PR — happy to iterate.
 
