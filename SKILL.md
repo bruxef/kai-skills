@@ -19,14 +19,22 @@ Depth files sit in `~/skills/thinking-toolkit/references/` in the Linux sandbox.
 
 ## Router
 
-| Symptom you hear | Lens | Move |
-|---|---|---|
-| "There's only one way to do this" | Inversion | Flip the load-bearing assumption |
-| "I've tried everything in this domain" | Collision | Treat A as if it were B |
-| "This problem is unique" / same shape keeps appearing | Meta-pattern | Extract the form, then find its third instance |
-| "It works in dev" / "should scale fine" | Scale | Test at 1000x and at 1/1000 |
-| "We just need one more special case" | Simplification | Find the rule with no exceptions |
-| "Let's rewrite this" / "this is the modern way" | Lineage | Find what it replaced and why |
+Diagnose the symptom, apply **one** lens. When two symptoms match, the lower number wins - the ordering is a tie-break, not a ranking of importance.
+
+| # | Symptom you hear | Lens | Move |
+|---|---|---|---|
+| 1 | "There's only one way to do this" | Inversion | Flip the load-bearing assumption |
+| 2 | "I've tried everything in this domain" | Collision | Treat A as if it were B |
+| 3 | "Why does this exist?" / "let's rewrite this" | Lineage | Find what it replaced and why |
+| 4 | "We just need one more special case" | Simplification | Find the rule with no exceptions |
+| 5 | "It works in dev" / "should scale fine" | Scale | Test at 1000x and at 1/1000 |
+| 6 | "Same shape keeps appearing" | Meta-pattern | Extract the form, find its third instance |
+
+**Discipline:** state in one line what changed. If no decision changed, drop the lens silently - a performed lens is worse than no lens.
+
+**Why precedence exists:** the symptoms genuinely overlap. "The solution feels incremental" matches both Collision and Simplification; "this is unique" matches Meta-pattern and Lineage. Without a tie-break the choice is arbitrary and unauditable.
+
+**Cap:** six lenses, and adding a seventh means deleting one. Beyond that the symptom phrases stop being mutually recognisable, so dispatch degrades faster than coverage grows. At the other extreme, a single lens (Inversion) covers most ordinary stalls.
 
 ## 1. Inversion - "what if the opposite were true?"
 
