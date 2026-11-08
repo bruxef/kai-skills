@@ -1,65 +1,73 @@
-# Kai Critical-Thinking Skills
+# Kai Critical-Thinking Toolkit
 
-A curated collection of **6 critical-thinking skills** adapted for [Kai](https://github.com/SimonSchubert/Kai) — your personal AI assistant with persistent memory.
+A single installable skill that gives Kai six ways out of a stall: **inversion, collision, meta-pattern, scale, simplification cascade, lineage tracing**.
 
-> **Perfect for**: decision-making, problem-solving, research, planning, and creative ideation.
-
----
-
-## 📦 Skills Included
-
-| Skill | Description | Install Command |
-|-------|-------------|-----------------|
-| **Inversion Exercise** | Stress-test ideas by flipping assumptions upside-down. Great for uncovering blind spots. | `bruxef/kai-skills/inversion-exercise` |
-| **Collision Zone Thinking** | Force unrelated concepts to collide — sparking novel insights at the intersections. | `bruxef/kai-skills/collision-zone-thinking` |
-| **Meta Pattern Recognition** | Detect recurring structures across domains — from code to biology to business strategy. | `bruxef/kai-skills/meta-pattern-recognition` |
-| **Scale Game** | Pressure-test any idea at 10×, 100×, 1000× scale. Reveals bottlenecks before they bite. | `bruxef/kai-skills/scale-game` |
-| **Simplification Cascades** | Systematically strip complexity while preserving essence. Turns tangled problems into clear action. | `bruxef/kai-skills/simplification-cascades` |
-| **Tracing Knowledge Lineages** | Map how ideas evolve across time — from paper to product, from hypothesis to consensus. | `bruxef/kai-skills/tracing-knowledge-lineages` |
+Adapted for [Kai](https://github.com/SimonSchubert/Kai) from [obra/superpowers-skills](https://github.com/obra/superpowers-skills), then restructured for how Kai installs skills today.
 
 ---
 
-## 🚀 Quick Install (Cloud Mode)
+## Install
 
-1. Open Kai → **Add Skill** → **Install from GitHub**
-2. Paste one of the install commands above (e.g., `bruxef/kai-skills/inversion-exercise`)
-3. Tap **Install**
-4. Repeat for each skill you want
+Kai → **Settings → Tools → Skills → Add Skill → Install from GitHub**, then paste:
 
-> **Tip**: Install all six — they compound. Using *Inversion* before *Scale Game* before *Simplification Cascades* is a killer workflow.
+```
+bruxef/kai-skills
+```
 
----
+One install, one slash command: **`/thinking-toolkit`**.
 
-## 🙏 Credits & Attribution
-
-These skills were **originally created by the [obra/superpowers-skills](https://github.com/obra/superpowers-skills) team** — huge thanks for building such a thoughtful toolkit for structured thinking.
-
-What I've done here:
-- ✅ Fixed `name` fields in `SKILL.md` to meet Kai's strict format requirements (lowercase, hyphens only)
-- ✅ Preserved all original logic, prompts, and structure
-- ✅ Packaged each skill as a standalone installable unit for Kai
-
-**Original repo**: [github.com/obra/superpowers-skills](https://github.com/obra/superpowers-skills)  
-**License**: MIT (inherited from upstream)
+Requires the Linux sandbox (Android). After installing, type `/thinking-toolkit` at the start of a message and describe the problem - the skill's instructions are attached for that turn only.
 
 ---
 
-## 🤝 Why This Repo Exists
+## What changed in v2
 
-Kai's skill installer expects a very specific `SKILL.md` frontmatter format. The upstream repo uses human-readable names (e.g., `Inversion Exercise`) that Kai rejects. Rather than asking every user to fork-and-fix, I did it once — so you can just install and think.
+**v1** shipped six separate skills (`/inversion-exercise`, `/scale-game`, ...) as six folders. That broke in two ways:
 
-If you're a Kai user who loves mental models, this saves you 30 minutes of yak-shaving.
+1. **Installing from the repo root failed** with `SKILL.md not found`, because there is no `SKILL.md` at the root - you had to know to append the folder name.
+2. **Six installs, six slash commands, six prompt payloads.** Nobody remembers six commands, and combining lenses meant stacking unrelated bodies.
+
+**v2** is one skill with a router: it names the symptom, picks one lens, runs it in four steps, and states what changed. Full originals live in `references/` and are read from the sandbox only when depth is needed.
+
+| | v1 | v2 |
+|---|---|---|
+| Installs | 6 | 1 |
+| Always-in-prompt cost | 0 (but 6 commands to remember) | 0 |
+| Cost when active | 0.5-1.8k tokens | ~1k tokens, depth on demand |
+| Install from repo root | fails | works |
 
 ---
 
-## 📄 License
+## Structure
 
-MIT — same as the original [obra/superpowers-skills](https://github.com/obra/superpowers-skills) repository.
+```
+SKILL.md              # the router + six condensed lenses (~4.7 KB)
+references/           # full original text per lens, read on demand
+  inversion-exercise.md
+  collision-zone-thinking.md
+  meta-pattern-recognition.md
+  scale-game.md
+  simplification-cascades.md
+  tracing-knowledge-lineages.md
+```
 
 ---
 
-## 📬 Feedback & Contributions
+## Still want the six standalone skills?
 
-Found a bug? Want to suggest another skill? Open an issue or PR — happy to iterate.
+They are preserved on the `v1-legacy` tag. Install one at a time with an explicit ref path:
 
-**Built with 🧠 for the Kai community.**
+```
+https://github.com/bruxef/kai-skills/tree/v1-legacy/inversion-exercise
+https://github.com/bruxef/kai-skills/tree/v1-legacy/scale-game
+```
+
+Beware: `bruxef/kai-skills/inversion-exercise` on `main` no longer exists by design.
+
+---
+
+## Credits
+
+Original skills by the [obra/superpowers-skills](https://github.com/obra/superpowers-skills) team. The underlying heuristics are much older - Polya's *How to Solve It* (1945), TRIZ, Munger's latticework - which is exactly why the content aged fine and the packaging did not.
+
+License: MIT.

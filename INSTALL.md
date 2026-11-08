@@ -1,85 +1,77 @@
 # Installation Guide
 
+Last checked against Kai's skill docs (2026-10) and the app source (`SkillFrontmatterParser.kt`, `SkillManager.kt`, `SkillRegistry.kt`).
+
+---
+
 ## Prerequisites
 
-- **Kai app** installed (v1.0+)
-- **Internet connection** (for initial install)
+- Kai on **Android** (skills live in the Linux sandbox, which other platforms lack)
+- Linux sandbox installed: Settings → Sandbox → Set up sandbox
+- Network access for the initial install
 
 ---
 
-## Method 1: One-Click Install (Recommended)
+## Install (single skill)
 
-For each skill you want, open Kai → **Add Skill** → **Install from GitHub** → paste the URL:
+1. Settings → **Tools** → **Skills**
+2. **Add Skill** → **Install from GitHub**
+3. Paste:
 
 ```
-bruxef/kai-skills/inversion-exercise
-bruxef/kai-skills/collision-zone-thinking
-bruxef/kai-skills/meta-pattern-recognition
-bruxef/kai-skills/scale-game
-bruxef/kai-skills/simplification-cascades
-bruxef/kai-skills/tracing-knowledge-lineages
+bruxef/kai-skills
 ```
 
-Tap **Install**. Repeat for each skill.
+4. **Install**
+
+That is it. The skill appears as **Thinking Toolkit** with the slash command `/thinking-toolkit`.
 
 ---
 
-## Method 2: Batch Install (Advanced)
+## Use
 
-If you're comfortable with the Kai CLI or want to script it:
+Start a message with the slash command:
 
-```bash
-# Example using Kai's CLI (if available)
-kai skill install bruxef/kai-skills/inversion-exercise
-kai skill install bruxef/kai-skills/collision-zone-thinking
-# ... etc
 ```
+/thinking-toolkit nossa API de pagamentos está lenta e todo mundo já tentou otimizar
+```
+
+The skill body is appended to the system prompt **for that turn only**. Nothing is added on other turns.
 
 ---
 
-## Verification
+## How installation actually works
 
-After installation, each skill appears in **Kai → Skills → Installed**.
+So you can debug it yourself:
 
-Test one:
-> "Hey Kai, run the **Inversion Exercise** on my idea to quit my job and start a bakery."
-
-You should see a structured inversion analysis.
+- The installer parses `owner/repo[/path]`, or `.../tree/<ref>/<path>`.
+- It fetches `https://raw.githubusercontent.com/<owner>/<repo>/<ref>/<path>/SKILL.md`.
+- If the path is empty, it fetches `<repo>/main/SKILL.md` - **a repo with no root `SKILL.md` fails with `SKILL.md not found`**. This was v1's bug.
+- Frontmatter rules: starts with `---`, closed by a second `---`; `name` = lowercase letters, digits, hyphens, ≤64 chars; `description` non-empty, ≤1024 chars. **Every other key is ignored** - including `when_to_use`, which is why triggers now live inside `description`.
+- Files land in `~/skills/<id>/`, siblings included (text only, <256 KB).
 
 ---
 
 ## Troubleshooting
 
-| Issue | Fix |
-|-------|-----|
-| "Invalid SKILL.md frontmatter" | You're using an old fork. Pull latest from `bruxef/kai-skills`. |
-| Skill doesn't appear | Restart Kai. Check internet. Re-install. |
-| "Repository not found" | Check spelling: `bruxef/kai-skills/<skill-name>` (all lowercase, hyphens). |
+| Symptom | Cause | Fix |
+|---|---|---|
+| `SKILL.md not found at .../SKILL.md` | Installed the repo root of v1, or a path that no longer exists | Install `bruxef/kai-skills` (root now has `SKILL.md`) |
+| Skills section shows "Install the sandbox first" | Sandbox missing | Settings → Sandbox → set up |
+| Skill installs but never activates | Wrong id in the slash command | Use `/thinking-toolkit`; autocomplete appears when you type `/` |
+| `name must be lowercase letters, digits, and hyphens` | Frontmatter has spaces/underscores | Fix `name:` in `SKILL.md` |
 
 ---
 
-## Why These URLs Work
+## Legacy: the six standalone skills
 
-Each skill folder contains a valid `SKILL.md` with Kai-compatible frontmatter:
+Preserved on tag `v1-legacy`:
 
-```yaml
-name: inversion-exercise        # ✅ lowercase, hyphens only
-version: "1.0.0"
-description: "Stress-test ideas by flipping assumptions upside-down."
-author: "obra (adapted for Kai by bruxef)"
-tags: [thinking, decision-making, mental-models]
 ```
-
-The upstream repo used `name: "Inversion Exercise"` — Kai rejects that. This repo fixes it.
-
----
-
-## Updating Skills
-
-Re-run the install command for a skill to get the latest version. Kai handles updates gracefully.
-
----
-
-## Questions?
-
-Open an issue on [GitHub](https://github.com/bruxef/kai-skills/issues) or ask in the Kai community.
+https://github.com/bruxef/kai-skills/tree/v1-legacy/inversion-exercise
+https://github.com/bruxef/kai-skills/tree/v1-legacy/collision-zone-thinking
+https://github.com/bruxef/kai-skills/tree/v1-legacy/meta-pattern-recognition
+https://github.com/bruxef/kai-skills/tree/v1-legacy/scale-game
+https://github.com/bruxef/kai-skills/tree/v1-legacy/simplification-cascades
+https://github.com/bruxef/kai-skills/tree/v1-legacy/tracing-knowledge-lineages
+```
