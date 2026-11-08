@@ -19,7 +19,7 @@ Last checked against Kai's skill docs (2026-10) and the app source (`SkillFrontm
 3. Paste:
 
 ```
-bruxef/kai-skills
+bruxef/kai-skills/toolkit
 ```
 
 4. **Install**
@@ -56,7 +56,8 @@ So you can debug it yourself:
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| `SKILL.md not found at .../SKILL.md` | Installed the repo root of v1, or a path that no longer exists | Install `bruxef/kai-skills` (root now has `SKILL.md`) |
+| `SKILL.md not found at .../SKILL.md` | Installed the repo root, or a path that no longer exists | Install `bruxef/kai-skills/toolkit` - the root intentionally has no `SKILL.md` |
+| Skill installs but `~/skills/thinking-toolkit/references/` is empty | Installed from the repo root: Kai's installer drops bundled files when the path is empty | Reinstall with `bruxef/kai-skills/toolkit` |
 | Skills section shows "Install the sandbox first" | Sandbox missing | Settings → Sandbox → set up |
 | Skill installs but never activates | Wrong id in the slash command | Use `/thinking-toolkit`; autocomplete appears when you type `/` |
 | `name must be lowercase letters, digits, and hyphens` | Frontmatter has spaces/underscores | Fix `name:` in `SKILL.md` |
